@@ -1,0 +1,18 @@
+{
+    "verilog.formatting.veribleVerilogFormatter.path": "/root/micromamba/envs/python312/bin/verible-verilog-format",
+    "verilog.formatting.verilogHDL.formatter": "verible-verilog-format",
+    "verilog.languageServer.veribleVerilogLs.enabled": true,
+    "verilog.languageServer.veribleVerilogLs.path": "/root/micromamba/envs/python312/bin/verible-verilog-ls",
+    "verilog.linting.iverilog.includePath": [
+        "src/"
+    ],
+    "verilog.linting.linter": "iverilog",
+    "verilog.linting.path": "/root/micromamba/envs/python312/bin/iverilog",
+    "verilog.linting.iverilog.arguments": "-Wall --column_limit=600",
+    "verilog.ctags.path": "/root/micromamba/envs/python312/bin/ctags",
+    "[verilog]": {
+        "editor.defaultFormatter": "mshr-h.veriloghdl"
+    },
+    "editor.colorDecorators": false,
+    "verilog.linting.iverilog.systemVerilog.standard": "SystemVerilog2009"
+}
