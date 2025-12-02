@@ -14,5 +14,6 @@
         "editor.defaultFormatter": "mshr-h.veriloghdl"
     },
     "editor.colorDecorators": false,
-    "verilog.linting.iverilog.systemVerilog.standard": "SystemVerilog2009"
+    "verilog.linting.iverilog.systemVerilog.standard": "SystemVerilog2009",
+    "python.defaultInterpreterPath": "/root/micromamba/envs/python312/bin/python3.12",
 }
