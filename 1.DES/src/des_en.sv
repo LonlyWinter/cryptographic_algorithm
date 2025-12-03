@@ -8,7 +8,7 @@ module des_en (
     output [63:0] data_out
 );
 
-wire [767:0] keys_now;
+wire [767:0] keys_all;
 wire [1087:0] data_mid;
 
 ip #(
@@ -20,7 +20,7 @@ ip #(
 
 key_schedule keys_inst (
     .data_in(key),
-    .data_out(keys_now)
+    .data_out(keys_all)
 );
 
 genvar index;
@@ -28,7 +28,7 @@ generate
     for (index = 0; index < 16; index = index + 1) begin: gen_feistel
         feistel feistel_inst (
             .data_in(data_mid[index*64+:64]),
-            .key(keys_now[index*48+:48]),
+            .key(keys_all[index*48+:48]),
             .data_out(data_mid[index*64+64+:64])
         );
     end

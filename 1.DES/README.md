@@ -2,6 +2,8 @@
 
 DES（Data Encryption Standard，数据加密标准）是一种对称密钥加密算法，由IBM在1970年代初开发，并于1977年被美国国家标准局（NBS，现为NIST）采纳为联邦信息处理标准（FIPS PUB 46）。尽管如今DES因密钥长度过短（56位）已不再安全，但它在密码学发展史上具有重要地位，并为后续算法（如3DES、AES）奠定了基础。
 
+[FIPS 46-3标准](https://csrc.nist.gov/pubs/fips/46-3/final)
+
 ## 一、基本特性
 
 - **对称加密**：加密和解密使用相同的密钥。

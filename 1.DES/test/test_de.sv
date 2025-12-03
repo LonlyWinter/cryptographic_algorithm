@@ -16,8 +16,9 @@ initial begin
     $dumpvars(0, des_de_inst);
 
     #5;
-    key = 64'h0123456789abcdef;
-    data = 64'h6a7d7274181d689f;
+    key = 64'h133457799BBCDFF1;
+    data = 64'h85E813540F0AB405;
+    // 0123456789abcdef
     #20;
 
     $finish;

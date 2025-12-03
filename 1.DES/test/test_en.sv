@@ -16,8 +16,9 @@ initial begin
     $dumpvars(0, test_en);
 
     #5;
-    key = 64'h0123456789abcdef;
-    data = 64'h636f6d7075746572;
+    key = 64'h133457799BBCDFF1;
+    data = 64'h0123456789abcdef;
+    // 85E813540F0AB405
     #20;
 
     $finish;

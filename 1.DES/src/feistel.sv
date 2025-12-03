@@ -15,22 +15,22 @@ assign data_out[63:32] = data_in[31:0];
 // Expansion Function
 // XOR
 assign data_expansion = {
-    data_right[32-1], data_right[1-1], data_right[2-1],
-    data_right[3-1], data_right[4-1], data_right[5-1],
-    data_right[4-1], data_right[5-1], data_right[6-1],
-    data_right[7-1], data_right[8-1], data_right[9-1],
-    data_right[8-1], data_right[9-1], data_right[10-1],
-    data_right[11-1], data_right[12-1], data_right[13-1],
-    data_right[12-1], data_right[13-1], data_right[14-1],
-    data_right[15-1], data_right[16-1], data_right[17-1],
-    data_right[16-1], data_right[17-1], data_right[18-1],
-    data_right[19-1], data_right[20-1], data_right[21-1],
-    data_right[20-1], data_right[21-1], data_right[22-1],
-    data_right[23-1], data_right[24-1], data_right[25-1],
-    data_right[24-1], data_right[25-1], data_right[26-1],
-    data_right[27-1], data_right[28-1], data_right[29-1],
-    data_right[28-1], data_right[29-1], data_right[30-1],
-    data_right[31-1], data_right[32-1], data_right[1-1]
+    data_right[32-32], data_right[32-1], data_right[32-2],
+    data_right[32-3], data_right[32-4], data_right[32-5],
+    data_right[32-4], data_right[32-5], data_right[32-6],
+    data_right[32-7], data_right[32-8], data_right[32-9],
+    data_right[32-8], data_right[32-9], data_right[32-10],
+    data_right[32-11], data_right[32-12], data_right[32-13],
+    data_right[32-12], data_right[32-13], data_right[32-14],
+    data_right[32-15], data_right[32-16], data_right[32-17],
+    data_right[32-16], data_right[32-17], data_right[32-18],
+    data_right[32-19], data_right[32-20], data_right[32-21],
+    data_right[32-20], data_right[32-21], data_right[32-22],
+    data_right[32-23], data_right[32-24], data_right[32-25],
+    data_right[32-24], data_right[32-25], data_right[32-26],
+    data_right[32-27], data_right[32-28], data_right[32-29],
+    data_right[32-28], data_right[32-29], data_right[32-30],
+    data_right[32-31], data_right[32-32], data_right[32-1]
 } ^ key;
 
 // Substitution Boxes
@@ -42,14 +42,14 @@ sbox sbox_inst (
 // Permutation P-Box
 // XOR
 assign data_out[31:0] = {
-    data_sbox[16-1], data_sbox[7-1], data_sbox[20-1], data_sbox[21-1],
-    data_sbox[29-1], data_sbox[12-1], data_sbox[28-1], data_sbox[17-1],
-    data_sbox[1-1], data_sbox[15-1], data_sbox[23-1], data_sbox[26-1],
-    data_sbox[5-1], data_sbox[18-1], data_sbox[31-1], data_sbox[10-1],
-    data_sbox[2-1], data_sbox[8-1], data_sbox[24-1], data_sbox[14-1],
-    data_sbox[32-1], data_sbox[27-1], data_sbox[3-1], data_sbox[9-1],
-    data_sbox[19-1], data_sbox[13-1], data_sbox[30-1], data_sbox[6-1],
-    data_sbox[22-1], data_sbox[11-1], data_sbox[4-1], data_sbox[25-1]
+    data_sbox[32-16], data_sbox[32-7], data_sbox[32-20], data_sbox[32-21],
+    data_sbox[32-29], data_sbox[32-12], data_sbox[32-28], data_sbox[32-17],
+    data_sbox[32-1], data_sbox[32-15], data_sbox[32-23], data_sbox[32-26],
+    data_sbox[32-5], data_sbox[32-18], data_sbox[32-31], data_sbox[32-10],
+    data_sbox[32-2], data_sbox[32-8], data_sbox[32-24], data_sbox[32-14],
+    data_sbox[32-32], data_sbox[32-27], data_sbox[32-3], data_sbox[32-9],
+    data_sbox[32-19], data_sbox[32-13], data_sbox[32-30], data_sbox[32-6],
+    data_sbox[32-22], data_sbox[32-11], data_sbox[32-4], data_sbox[32-25]
 } ^ data_in[63:32];
 
 
