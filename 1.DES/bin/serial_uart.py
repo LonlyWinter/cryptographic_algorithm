@@ -10,20 +10,20 @@ ser = serial.Serial(
     timeout=3
 )
 # %%
-hex_str = "0123456789abcdefff"
-data = bytes.fromhex(hex_str)[::-1]
+hex_str = "ff0123456789abcdef"
+data = bytes.fromhex(hex_str)
 ser.write(data)
 # %%
-hex_str = "636f6d70757465720f"
-data = bytes.fromhex(hex_str)[::-1]
+hex_str = "0f636f6d7075746572"
+data = bytes.fromhex(hex_str)
 ser.write(data)
-v = ser.read(size=16)[::-1].hex()
+v = ser.read(size=16).hex()
 print(v)
 # %%
-hex_str = "6a7d7274181d689ff0"
-data = bytes.fromhex(hex_str)[::-1]
+hex_str = "f06a7d7274181d689f"
+data = bytes.fromhex(hex_str)
 ser.write(data)
-v = ser.read(size=16)[::-1].hex()
+v = ser.read(size=16).hex()
 print(v)
 # %%
 ser.close()

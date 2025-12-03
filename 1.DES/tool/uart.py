@@ -13,20 +13,18 @@ data_head = """
 data_zip = tuple(map(
     lambda d: "{}{}".format(*d),
     zip(
-        data.strip().split("\n"),
         data_head.strip().split("\n"),
+        data.strip().split("\n"),
     )
 ))
 # %%
 data_list = "\n\n\n".join(map(
-    lambda d: "{}#100;".format("".join(map(
+    lambda d: "{}#2000;".format("".join(map(
         lambda dd: "rx = {}; #16;\n".format(dd),
-        "".join(["0{}1".format("".join(reversed(d[i*8:i*8+8]))) for i in reversed(range(9))])
+        "".join(["0{}1".format("".join(reversed(d[i*8:i*8+8]))) for i in range(9)])
     ))),
     data_zip
 ))
-# %%
-data_list
 # %%
 with open("temp.txt", "w") as f:
     f.write(data_list)

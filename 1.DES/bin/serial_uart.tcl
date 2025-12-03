@@ -25,4 +25,5 @@ set hw_device [lindex [get_hw_device] 0]
 set_property PROGRAM.FILE {./1.DES/des.bit} $hw_device
 refresh_hw_device $hw_device
 program_hw_device $hw_device
+disconnect_hw_server
 close_hw_manager

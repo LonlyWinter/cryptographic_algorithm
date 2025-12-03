@@ -40,17 +40,17 @@ reg [14:0] baud_index = 15'd0;
 
 reg [127:0] data_calc;
 des_en des_en_inst (
-    .data_in(data_rx[71:8]),
+    .data_in(data_rx[63:0]),
     .key(data_key),
     .data_out(data_calc[63:0])
 );
 des_de des_de_inst (
-    .data_in(data_rx[71:8]),
+    .data_in(data_rx[63:0]),
     .key(data_key),
     .data_out(data_calc[127:64])
 );
-assign status1 = data_rx[0];
-assign status2 = data_rx[4];
+assign status1 = data_rx[64];
+assign status2 = data_rx[68];
 assign status3 = status[0];
 assign status4 = status[1];
 
@@ -80,23 +80,24 @@ always @(posedge clk) begin
                 // 数据写入
                 index = 4'd9;
                 uart_tx = 1;
-                if (data_index == 4'd7) begin
+                if (data_index == 4'd0) begin
                     // 发送完毕，开始接收新一轮
                     status = 2'b10;
-                    data_index = 4'd0;
+                    data_index = 4'd8;
                 end
                 else
-                    data_index = data_index + 1;
+                    data_index = data_index - 1;
             end
             else begin
                 // 开始或结束校验错误
                 // 恢复开始位
-                // 数据重新读取
+                // 数据重新发送
                 index = 4'd9;
-                data_index = 4'd0;
+                data_index = 4'd7;
             end
         end
         else if (status == 2'b10) begin
+            uart_tx = 1'b1;
             // 接收
             if (index < 4'd8) begin
                 // 数据
@@ -115,49 +116,52 @@ always @(posedge clk) begin
                 // 数据写入
                 index = 4'd9;
                 data_rx[data_index*8+:8] = data;
-                if (data_index == 4'd8) begin
+                if (data_index == 4'd0) begin
                     // 接收完毕，开始处理
                     status = 2'b00;
-                    data_index = 4'd0;
+                    data_index = 4'd8;
                 end
                 else
-                    data_index = data_index + 1;
+                    data_index = data_index - 1;
             end
             else begin
                 // 开始或结束校验错误
                 // 恢复开始位
                 // 数据重新读取
                 index = 4'd9;
-                data_index = 4'd0;
+                data_index = 4'd8;
             end
         end
         else begin
             // 正在处理
-            case (data_rx[7:0])
+            case (data_rx[71:64])
                 // 密钥
                 // 继续接收数据
                 8'b11111111: begin
-                    data_key = data_rx[71:8];
+                    data_key = data_rx[63:0];
                     status = 2'b10;
+                    data_index = 4'd8;
                 end
                 // 加密
                 // 处理完毕，开始发送
                 8'b00001111: begin
                     data_tx = data_calc[63:0];
                     status = 2'b01;
+                    data_index = 4'd7;
                 end
                 // 解密
                 // 处理完毕，开始发送
                 8'b11110000: begin
                     data_tx = data_calc[127:64];
                     status = 2'b01;
+                    data_index = 4'd7;
                 end
                 default: begin
                     // 错误，重新接收数据
                     status = 2'b10;
+                    data_index = 4'd8;
                 end
             endcase
-            data_index = 4'd0;
             index = 4'd9;
         end
     end
