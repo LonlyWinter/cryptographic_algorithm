@@ -91,16 +91,26 @@ wire [2047:0] DATA = {
 genvar index;
 generate
 for (index = 0; index < 8; index = index + 1) begin: gen_sbox
-    localparam int START = index * 256 + 252;
+    localparam int START = index * 256;
     wire [7:0] index_now = {
-        data_in[index * 6 + 5],
-        data_in[index * 6 + 0],
-        data_in[index * 6 + 4],
-        data_in[index * 6 + 3],
-        data_in[index * 6 + 2],
-        data_in[index * 6 + 1],
+        ~data_in[index * 6 + 5],
+        ~data_in[index * 6 + 0],
+        ~data_in[index * 6 + 4],
+        ~data_in[index * 6 + 3],
+        ~data_in[index * 6 + 2],
+        ~data_in[index * 6 + 1],
         2'b00
     };
+    // localparam int START = index * 256 + 252;
+    // wire [7:0] index_now = {
+    //     data_in[index * 6 + 5],
+    //     data_in[index * 6 + 0],
+    //     data_in[index * 6 + 4],
+    //     data_in[index * 6 + 3],
+    //     data_in[index * 6 + 2],
+    //     data_in[index * 6 + 1],
+    //     2'b00
+    // };
     // wire [1:0] r = {
     //     data_in[index * 6 + 5],
     //     data_in[index * 6 + 0]
@@ -113,7 +123,7 @@ for (index = 0; index < 8; index = index + 1) begin: gen_sbox
     // };
     // wire [10:0] i = START-index_now;
     // wire [3:0] d = DATA[START-index_now+:4];
-    assign data_out[index*4+:4] = DATA[START-index_now+:4];
+    assign data_out[index*4+:4] = DATA[START+index_now+:4];
 end
 endgenerate
 
