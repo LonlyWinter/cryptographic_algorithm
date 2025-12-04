@@ -13,7 +13,9 @@ state state_inst1 (
     .data_out(state_now)
 );
 
-shift_rows shift_inst (
+shift_rows #(
+    .EN(1)
+) shift_inst (
     .data_in(state_now),
     .data_out(shift_now)
 );

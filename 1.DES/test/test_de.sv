@@ -18,9 +18,8 @@ initial begin
     #5;
     key = 64'h133457799BBCDFF1;
     data = 64'h85E813540F0AB405;
-    // 0123456789abcdef
     #20;
-
+    $display("DES: %h\n   - 0123456789abcdef", out);
     $finish;
 end
 

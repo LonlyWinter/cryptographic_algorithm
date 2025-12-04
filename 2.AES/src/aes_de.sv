@@ -1,5 +1,5 @@
 
-module aes_en #(
+module aes_de #(
     parameter int LEN_KEY = 128,
     parameter int NUM_ROUND = 10
 ) (
@@ -28,10 +28,10 @@ wire [127:0] data_init;
 wire [127:0] key_init;
 state state_inst_key (
     .data_in({
-        key_all[31:0],
-        key_all[63:32],
-        key_all[95:64],
-        key_all[127:96]
+        key_all[NUMALL-128+:32],
+        key_all[NUMALL-96+:32],
+        key_all[NUMALL-64+:32],
+        key_all[NUMALL-32+:32]
     }),
     .data_out(key_init)
 );
@@ -41,7 +41,7 @@ state state_inst_init (
 );
 
 assign data_mid[127:0] = data_init ^ key_init;
-
+wire [127:0] round0 = data_mid[127:0];
 
 genvar index;
 generate
@@ -50,44 +50,48 @@ generate
         localparam int IL = (index - 1) * 128;
         // index now
         localparam int IN = index * 128;
+        // shift_rows
+        wire [127:0] shift_now;
+        shift_rows #(
+            .EN(0)
+        ) shift_inst (
+            .data_in(data_mid[IL+:128]),
+            .data_out(shift_now)
+        );
         // sub_bytes
         wire [127:0] sub_bytes;
         sbox #(
             .NUM(16),
-            .EN(1)
+            .EN(0)
         ) sbox_inst (
-            .data_in(data_mid[IL+:128]),
+            .data_in(shift_now),
             .data_out(sub_bytes)
         );
-        // shift_rows
-        wire [127:0] shift_now;
-        shift_rows #(
-            .EN(1)
-        ) shift_inst (
-            .data_in(sub_bytes),
-            .data_out(shift_now)
-        );
-        // mix_columns
-        wire [127:0] mix_now;
-        if (index < NUM_ROUND)
-            mix_columns mix_inst (
-                .data_in(shift_now),
-                .data_out(mix_now)
-            );
-        else
-            assign mix_now = shift_now;
         // add_round_key
         wire [127:0] round_key;
         state state_inst_key (
             .data_in({
-                key_all[IN+:32],
-                key_all[IN+32+:32],
-                key_all[IN+64+:32],
-                key_all[IN+96+:32]
+                key_all[NUMALL-IN-128+:32],
+                key_all[NUMALL-IN-96+:32],
+                key_all[NUMALL-IN-64+:32],
+                key_all[NUMALL-IN-32+:32]
             }),
             .data_out(round_key)
         );
-        assign data_mid[IN+:128] = mix_now ^ round_key;
+        wire [127:0] add_key = sub_bytes ^ round_key;
+        // mix_columns
+        wire [127:0] mix_now;
+        if (index < NUM_ROUND)
+            mix_columns #(
+                .EN(0)
+            ) mix_inst (
+                .data_in(add_key),
+                .data_out(mix_now)
+            );
+        else
+            assign mix_now = add_key;
+        // res
+        assign data_mid[IN+:128] = mix_now;
     end
 endgenerate
 

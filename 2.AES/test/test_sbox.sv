@@ -5,7 +5,8 @@ reg [7:0] data_in1;
 reg [7:0] data_out1;
 
 sbox #(
-    .NUM(1)
+    .NUM(1),
+    .EN(1)
 ) sbox_inst1 (
     .data_in(data_in1),
     .data_out(data_out1)
@@ -15,7 +16,8 @@ reg [15:0] data_in2;
 reg [15:0] data_out2;
 
 sbox #(
-    .NUM(2)
+    .NUM(2),
+    .EN(1)
 ) sbox_inst2 (
     .data_in(data_in2),
     .data_out(data_out2)
