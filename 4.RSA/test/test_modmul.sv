@@ -1,0 +1,49 @@
+
+module test_modmul;
+
+reg [255:0] a, b, n, n_prime, r2, res_real;
+wire [255:0] res;
+
+modmul #(
+    .LEN(256)
+) modmul_inst (
+    .a(a),
+    .b(b),
+    .n(n),
+    .n_prime(n_prime),
+    .r2_mod_n(r2),
+    .res(res)
+);
+
+initial begin
+    $dumpfile("test_modmul.vcd");
+    $dumpvars(0, test_modmul);
+    // a: 0xa1b2c3d4e5f67890123456789012345678901234567890123456789012345678
+    // b: 0xfedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
+    // n: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f
+    // r: 0x10000000000000000000000000000000000000000000000000000000000000000
+    // rr: 0x100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    // r2:0x000000000000000000000000000000000000000000000001000007a2000e90a1
+    // n_prime: 0xc9bd1905155383999c46c2c295f2b761bcb223fedc24a059d838091dd2253531
+    // a_r2: 0xa1b2c8a71c7a6ab44ab20fdd5f421447c1a9a21447c1a9a21447c1a9a21447c1198fdba59e1de178
+    // b_r2: 0xfedcc231c72af1d6d3a0755e4b276de6d3a0755e4b276de6d3a0755e4b276de5d4c3b32c83fc7c10
+    // a_mont: 0x133d811b3d6744e09d036744e09d036744e09d036744e0a71e93cf495049296
+    // b_mont: 0x1eb851ec962fcd751eb851ec962fcd751eb851ec962fcd761d95141d3fc5ae85
+    // t: 0x24f0f7e3a9c8137d39e7ab95cd7818eec3eb5b9b3f021cb3633681200505e57d666a9bcbac56cf6ae76347f2716265a80b1bb56dfca6175ac407f03e701bee
+    // ab_mont: 0x98fca94811c9c8af40c3ec05befa3f49bd511c7cfa719d75d13cfd7cf5d0e9dc
+    // res: 0x6c73c0cfb339d09d1224a13d02f8922d68545ffe934ec1eccadf84c325bf8caf
+    a = 256'hA1B2C3D4E5F67890123456789012345678901234567890123456789012345678;
+    b = 256'hFEDCBA9876543210FEDCBA9876543210FEDCBA9876543210FEDCBA9876543210;
+    n = 256'hFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F;
+    n_prime = 256'hc9bd1905155383999c46c2c295f2b761bcb223fedc24a059d838091dd2253531;
+    r2 = 256'h000000000000000000000000000000000000000000000001000007a2000e90a1;
+    res_real = 256'h6c73c0cfb339d09d1224a13d02f8922d68545ffe934ec1eccadf84c325bf8caf;
+    #10;
+    $display(
+        "Montgomery ModMul\n  a = %h\n  b = %h\n  n = %h\nres = %h\n    - %h",
+        a, b, n, res, res_real
+    );
+    $finish;
+end
+
+endmodule
