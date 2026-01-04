@@ -18,3 +18,9 @@ Author: winter <winter_lonely@foxmail.com>
 
 - [SM4算法](./3.SM4/README.md)
 
+- [RSA算法](./4.RSA/README.md)
+
+- [ECC算法](./5.ECC/READMD.md)
+
+- [SHA-1算法](./6.SHA-1/README.md)
+
