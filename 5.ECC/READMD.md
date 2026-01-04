@@ -83,5 +83,5 @@ K = d_A Q_B = d_B Q_A = d_A d_B G
 
 - **NIST 曲线**：P-256（secp256r1）、P-384、P-521
 - **SECG 曲线**：secp256k1（比特币使用）
-- **Curve25519 / Ed25519**：由 Daniel J. Bernstein 设计，性能高、安全性强，广泛用于现代协议（如 Signal、SSH、TLS 1.3）
+- **[Curve25519](./doc/Curve25519.md) / Ed25519**：由 Daniel J. Bernstein 设计，性能高、安全性强，广泛用于现代协议（如 Signal、SSH、TLS 1.3）
 
