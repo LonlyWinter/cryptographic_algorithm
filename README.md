@@ -24,3 +24,5 @@ Author: winter <winter_lonely@foxmail.com>
 
 - [SHA-1算法](./6.SHA-1/README.md)
 
+- [Keccak算法](./7.Keccak/README.md)
+
