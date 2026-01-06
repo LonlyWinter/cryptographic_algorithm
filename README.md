@@ -28,3 +28,5 @@ Author: winter <winter_lonely@foxmail.com>
 
 - [DSA算法](./8.DSA/README.md)
 
+- [SM3算法](./9.SM3/README.md)
+
